@@ -13,8 +13,11 @@ conn.connect(function(err){
         console.error("Error connecting " + err.stack);
     }
     console.log('Connected');
+
 });
-
-exports.register = function(req,res){
-
+exports.determine = function(req,res){
+    var buttonClicked = req.body.Login;
+    if(buttonClicked === 'Log In'){
+        res.render(path.join(__dirname, '/'))
+    }
 }

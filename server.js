@@ -2,6 +2,9 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var bodyparser = require('body-parser');
+var login = require('./routes/loginroutes');
+
+
 
 //test
 //Setting View engine
@@ -17,5 +20,7 @@ app.use(bodyparser.urlencoded({extended: false}));
 app.get('/', function(req, res) {
     res.render(path.join(__dirname + '/views/index.ejs'));
 });
+
+app.post('/loginres', login.determine);
 
 app.listen(8080);
