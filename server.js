@@ -1,10 +1,20 @@
 var express = require('express');
 var app = express();
 var path = require('path');
+var bodyparser = require('body-parser');
+
+//Setting View engine
+app.set('view engine','ejs');
+app.set('views', path.join(__dirname, '/views'));
+
+//Body Parser Middle ware
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({extended: false}));
+
 
 // viewed at http://localhost:8080
 app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname + '/index.html'));
+    res.render(path.join(__dirname + '/views/index.ejs'));
 });
 
 app.listen(8080);
