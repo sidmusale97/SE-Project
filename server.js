@@ -25,6 +25,11 @@ app.get('/mainpage', function(req,res){
     res.render(path.join(__dirname, '/views/pages/AccountMainPage.ejs'));
 });
 
+app.get('/ReservationFrom', function(req,res){
+    res.render(path.join(__dirname, '/views/pages/ReservationForm.ejs'));
+});
+
 app.post('/loginres', login.determine);
+
 
 app.listen(8080);
