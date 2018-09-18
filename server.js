@@ -25,7 +25,7 @@ app.get('/mainpage', function(req,res){
     res.render(path.join(__dirname, '/views/pages/AccountMainPage.ejs'));
 });
 
-app.get('/ReservationFrom', function(req,res){
+app.get('/ReservationForm', function(req,res){
     res.render(path.join(__dirname, '/views/pages/ReservationForm.ejs'));
 });
 
