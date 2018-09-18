@@ -18,6 +18,6 @@ conn.connect(function(err){
 exports.determine = function(req,res){
     var buttonClicked = req.body.Login;
     if(buttonClicked === 'Log In'){
-        res.render(path.join(__dirname, '/'))
+        res.redirect('/mainpage');
     }
 }

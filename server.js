@@ -21,6 +21,10 @@ app.get('/', function(req, res) {
     res.render(path.join(__dirname + '/views/index.ejs'));
 });
 
+app.get('/mainpage', function(req,res){
+    res.render(path.join(__dirname, '/views/pages/AccountMainPage.ejs'));
+});
+
 app.post('/loginres', login.determine);
 
 app.listen(8080);
