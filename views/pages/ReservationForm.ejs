@@ -9,8 +9,18 @@
 </head>
 <body>
     <h1>Reservation Page</h1>
-    <form>
-        
-    </form>
+    <form method = 'POST' action = '/reservationres'>
+        <h2>Your reservations:</h2>
+        There are no reservations to display. <br>
+        <!-- show user's current reservations, only show button if they have reservations -->
+        <input type = 'submit' value = 'Cancel Reservation' name = 'cancelReservation'>
+        <br>
+        <h2>Place new reservation:</h2>
+        Reservation Start Date:<br>
+        <input id="datefield" type='date' min='1899-01-01' max='2000-13-13'></input>
+        <!-- ill finish this later -->
+
+		<input type = 'submit' value = 'Register' name = 'Register'>
+	</form>
 </body>
 </html>
