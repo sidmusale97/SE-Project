@@ -21,7 +21,7 @@ app.get('/', function(req, res) {
     res.render(path.join(__dirname + '/views/index.ejs'));
 });
 
-app.get('/mainpage', function(req,res){
+    console.log(req.body);
     res.render(path.join(__dirname, '/views/pages/AccountMainPage.ejs'));
 });
 
@@ -29,7 +29,8 @@ app.get('/ReservationForm', function(req,res){
     res.render(path.join(__dirname, '/views/pages/ReservationForm.ejs'));
 });
 
-app.post('/loginres', login.determine);
+    res.render(path.join(__dirname,'/views/pages/RegistrationForm.ejs'));
+});
 
 
 app.listen(8080);

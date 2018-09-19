@@ -2,18 +2,22 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Log In</title
+	<title>Log In</title
+	<link rel ="stylesheet" href="/public/login.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 	<h1>Log In or Register</h1>
-	<form method = 'POST' action = '/loginres'>
+	<form method = 'POST' action = '/login'>
 		Username:<br>
 		<input type = 'text' name = 'Email'><br>
 		Password:<br>
 		<input type = 'password' name = 'Password'><br>
 		<br>
 		<input type = 'submit' value = 'Log In' name = 'Login'> 
-		<input type = 'submit' value = 'Register' name = 'Register'>
 	</form>
+	<button id="register">Register</button>
+    <script>document.getElementById("register").onclick = function(){
+        location.href = "/register"
+    }</script>
 <% include partials/footer %>
