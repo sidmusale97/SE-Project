@@ -2,37 +2,28 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var bodyparser = require('body-parser');
-var login = require('./routes/loginroutes');
+
+var port = 8000;
+
+var index = require('./routes/index');
+const users = require('./routes/users');
 
 
-
-//test
 //Setting View engine
 app.set('view engine','ejs');
 app.set('views', path.join(__dirname, '/views'));
+app.engine('html', require('ejs').renderFile);
+
+//Set static folder
+app.use(express.static(path.join(__dirname, 'public')));
 
 //Body Parser Middle ware
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended: false}));
 
+app.use('/', index);
+app.use('/users', users);
 
-// viewed at http://localhost:8080
-app.get('/', function(req, res) {
-    res.render(path.join(__dirname + '/views/index.ejs'));
+app.listen(port, function(){
+    console.log("server on port: " + port);
 });
-
-app.post('/login', function(req,res){
-    console.log(req.body);
-    res.render(path.join(__dirname, '/views/pages/AccountMainPage.ejs'));
-});
-
-app.get('/ReservationForm', function(req,res){
-    res.render(path.join(__dirname, '/views/pages/ReservationForm.ejs'));
-});
-
-app.get('/register' , function(req,res){
-    res.render(path.join(__dirname,'/views/pages/RegistrationForm.ejs'));
-});
-
-
-app.listen(8080);

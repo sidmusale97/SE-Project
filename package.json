@@ -9,11 +9,17 @@
   "author": "Siddharth",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "*",
     "body-parser": "*",
+    "cors": "*",
     "ejs": "*",
     "express": "^4.16.3",
+    "express-session": "*",
     "express-validator": "^5.3.0",
+    "jsonwebtoken": "*",
+    "mongodb": "^3.1.6",
+    "mongoose": "*",
     "mysql": "*",
-    "express-session": "*"
+    "passport": "*"
   }
 }

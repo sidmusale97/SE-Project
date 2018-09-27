@@ -8,9 +8,10 @@
 </head>
 <body>
 	<h1>Log In or Register</h1>
-	<form method = 'POST' action = '/login'>
+	<h2 style = "color:Red"> <%= error %><h2>
+	<form method = 'POST' action = '/users/login'>
 		Username:<br>
-		<input type = 'text' name = 'Email'><br>
+		<input type = 'text' name = 'Username'><br>
 		Password:<br>
 		<input type = 'password' name = 'Password'><br>
 		<br>
@@ -18,6 +19,7 @@
 	</form>
 	<button id="register">Register</button>
     <script>document.getElementById("register").onclick = function(){
-        location.href = "/register"
+        location.href = "/users/registerpage"
     }</script>
-<% include partials/footer %>
+</body>
+</html>
