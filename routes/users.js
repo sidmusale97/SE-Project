@@ -3,7 +3,7 @@ const router = express.Router();
 var mongodb = require('mongodb').MongoClient;
 const config = require('../config/database');
 
-//Register
+//Login
 router.post('/login', (req,res,next) => {
     var username = req.body.Username;
     var password = req.body.Password;
@@ -21,12 +21,27 @@ router.post('/login', (req,res,next) => {
             }
             else
             {
-                res.render('AccountMainPage.ejs');
+                res.render('AccountMainPage.ejs', {name:result.name});
             }
             db.close();
         });
     });
     
+});
+
+//Register
+router.post('/register', (req,res,next) => {
+    var username = req.body.Username;
+    var password = req.body.Password;
+    var confirmpass = req.body.conPass;
+    var email = req.body.email;
+    var confirmEmail = req.body.conEmail;
+});
+
+
+//Register page
+router.get('/registerpage', (req,res,next) =>{
+    res.render('RegistrationForm.ejs');
 });
 
 
