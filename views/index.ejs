@@ -4,22 +4,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Log In</title
 	<link rel ="stylesheet" href="/public/login.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
 </head>
 <body>
-	<h1>Log In or Register</h1>
-	<p style = "color:Red"> <%= error %><p>
-	<form method = 'POST' action = '/users/login'>
-		Username:<br>
-		<input type = 'text' name = 'Username'><br>
-		Password:<br>
-		<input type = 'password' name = 'Password'><br>
-		<br>
-		<input type = 'submit' value = 'Log In' name = 'Login'> 
-	</form>
-	<button id="register">Register</button>
-    <script>document.getElementById("register").onclick = function(){
-        location.href = "/users/registerpage"
-    }</script>
+	<table width = '50%'>
+	<tr>
+		<th style="text-align:left">Log In or Register Member</th>
+		<th style = "text-align:left">Temporary Non Member Sign up</th>
+	</tr>
+	<tr>
+		<p style = "color:Red"> <%= error %><p>
+	</tr>
+	<tr>
+		<td>
+		<form method = 'POST' action = '/users/login'>
+			Username:<br>
+			<input type = 'text' name = 'Username'><br>
+			Password:<br>
+			<input type = 'password' name = 'Password'><br>
+			<br>
+			<input type = 'submit' value = 'Log In' name = 'Login'> 
+		</form>
+		<button id="register">Register</button>
+    	<script>document.getElementById("register").onclick = function(){
+			location.href = "/users/registerpage"
+		}</script>
+		</td>
+		<td>
+			<form method = 'POST' action = '/users/login'>
+				Email:<br>
+				<input type = 'text' name = 'tempEmail'><br>
+				Name:<br>
+				<input type = 'password' name = 'tempPassword'><br>
+				<br>
+				<input type = 'submit' value = 'Log In' name = 'Login'> 
+				</form>
+		</td>
+	</tr>
+	</table>
 </body>
 </html>

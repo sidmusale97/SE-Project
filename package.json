@@ -20,6 +20,6 @@
     "mongodb": "^3.1.6",
     "mongoose": "*",
     "mysql": "*",
-    "passport": "*"
+    "passport": "*",
   }
 }

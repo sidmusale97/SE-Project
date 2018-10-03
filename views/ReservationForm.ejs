@@ -5,21 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Registration</title>
+    <title>Reservation Page</title>
 </head>
 <body>
     <h1>Reservation Page</h1>
-    <form method = 'POST' action = '/reservationres'>
-        <h2>Your reservations:</h2>
-        There are no reservations to display. <br>
-        <!-- show user's current reservations, only show button if they have reservations -->
-        <input type = 'submit' value = 'Cancel Reservation' name = 'cancelReservation'>
-        <br>
+    <form method = 'get' action = '/reservation/create'>
         <h2>Place new reservation:</h2>
         Reservation Start Date:<br>
-        <input id="datefield" type='date' min='1899-01-01' max='2000-13-13'></input>
+        <input name="datefield" type='datetime-local' min='1899-01-01' max='2100-13-13'></input>
         <!-- ill finish this later -->
-
 		<input type = 'submit' value = 'Register' name = 'Register'>
 	</form>
 </body>
