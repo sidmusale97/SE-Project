@@ -3,10 +3,10 @@ const router = express.Router();
 var mongodb = require('mongodb').MongoClient;
 const config = require('../config/database');
 var session = require('express-session');
-var username;
+
 //Login
 router.post('/login', (req,res,next) => {
-    username = req.body.Username;
+    var username = req.body.Username;
     var password = req.body.Password;
     mongodb.connect(config.database, {useNewUrlParser: true}, (err, db) => {
         if (err) throw err;
@@ -22,14 +22,33 @@ router.post('/login', (req,res,next) => {
             }
             else
             {
-                req.session.userId = result._id;
-                res.render('AccountMainPage.ejs', {name:result.name});
+                req.session.Username = result.username;
+                req.session.name = result.name;
+                res.redirect('/users/login/success');
             }
             db.close();
             
         });
     });
     
+});
+
+router.get('/login/success', (req,res,next) => {
+    var Username = req.session.Username;
+    var reservations = null;
+    mongodb.connect(config.database, {useNewUrlParser: true}, (err,db) =>{
+            if (err)throw err;
+            else{
+                var dbo = db.db('SE_Project');
+                dbo.collection('Reservations').find(function(err, result){
+                console.log(result);
+                reservations = result;
+                });
+            }
+            db.close();
+    });
+    console.log(reservations);
+    res.render('AccountMainPage.ejs', {name: req.session.name, reservations: reservations});
 });
 
 //Register
@@ -51,7 +70,7 @@ router.post('/register', (req,res,next) => {
         res.render('RegistrationForm.ejs', {error:"Emails don't match"});
     }
     else{
-        res
+    
     }
 })
 

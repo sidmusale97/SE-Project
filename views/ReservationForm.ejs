@@ -9,12 +9,16 @@
 </head>
 <body>
     <h1>Reservation Page</h1>
-    <form method = 'get' action = '/reservation/create'>
+    <form method = 'POST' action = '/reservation/create'>
         <h2>Place new reservation:</h2>
         Reservation Start Date:<br>
-        <input name="datefield" type='datetime-local' min='1899-01-01' max='2100-13-13'></input>
+        <script>
+            var curDate = new Date();
+            console.log(curDate);
+        </script>
+        <input name="datefield" type='datetime-local' min = ></input>
         <!-- ill finish this later -->
-		<input type = 'submit' value = 'Register' name = 'Register'>
+		<input type = 'submit' value = 'Create Reservation' name = 'makeRes'>
 	</form>
 </body>
 </html>

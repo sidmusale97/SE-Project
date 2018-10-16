@@ -6,15 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <h1>Hello <%= name %></h1>
-    <button id="makeRes">Make a Reservation</button>
-    <script>document.getElementById("makeRes").onclick = () => {
-        location.href = "/reservation/form"
-    } 
-    </script>
-    
-    <br><br>
-    <button>Cancel a Reservation</button><br><br>
-    <button>Account Management</button>
+    <table>
+        <tr>
+        <td>
+            <h1>Hello <%= name %></h1>
+            <button id="makeRes">Make a Reservation</button>
+            <script>document.getElementById("makeRes").onclick = () => {
+                location.href = "/reservation/form"
+            } 
+            </script>
+            <br><br>
+            <button>Cancel a Reservation</button><br><br>
+            <button>Account Management</button><br><br>
+            <button>Log Out</button>
+        </td>
+        <td>
+            <h1>Your Reservations</h1>
+            
+    </table>
 </body>
 </html>
