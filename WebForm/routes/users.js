@@ -1,54 +1,43 @@
 const express = require('express');
 const router = express.Router();
-var mongodb = require('mongodb').MongoClient;
+const mysql = require('mysql');
 const config = require('../config/database');
 var session = require('express-session');
 
+var con = config.database;
 //Login
 router.post('/login', (req,res,next) => {
     var username = req.body.Username;
     var password = req.body.Password;
-    mongodb.connect(config.database, {useNewUrlParser: true}, (err, db) => {
-        if (err) throw err;
-        else{
-            console.log("connected");
-        }
-        var dbo = db.db('SE_Project');
-        dbo.collection('Users').findOne({username: username, password: password}, (err, result) =>{
-            if (err)throw err;
-            if (result == null)
+    var query = "SELECT * FROM Users WHERE Username = '" + username + "' and Password = '" + password + "'";
+    con.query(query,(err, result, fields) =>{
+        if (err)throw err;
+        if (result == null)
             {
                 res.render('index.ejs', {error: "Username does not exist or password is invalid"});
             }
             else
             {
-                req.session.Username = result.username;
-                req.session.name = result.name;
+                req.session.userID = result[0].idUsers;
+                req.session.name = result[0].Name;
                 res.redirect('/users/login/success');
-            }
-            db.close();
-            
+            }   
         });
     });
-    
-});
 
 router.get('/login/success', (req,res,next) => {
-    var Username = req.session.Username;
     var reservations = null;
-    mongodb.connect(config.database, {useNewUrlParser: true}, (err,db) =>{
-            if (err)throw err;
-            else{
-                var dbo = db.db('SE_Project');
-                dbo.collection('Reservations').find(function(err, result){
-                console.log(result);
-                reservations = result;
-                });
-            }
-            db.close();
+    var query = "SELECT * FROM Reservations WHERE userID = "+ req.session.userID;
+    console.log(query);
+    var months = ["January", "Feburary", ", March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    con.query(query, (err, result, fields) => {
+        for (var r in result)
+        {
+            console.log(r);
+        }  
+        res.render('AccountMainPage.ejs', {name:req.session.name, reservations:result});
     });
-    console.log(reservations);
-    res.render('AccountMainPage.ejs', {name: req.session.name, reservations: reservations});
+   
 });
 
 //Register
@@ -64,13 +53,13 @@ router.post('/register', (req,res,next) => {
         res.render('RegistrationForm.ejs', {error:"Passwords and Emails don't match"});
     }
     else if(password !== confirmpass){
-        res.render('RegistrationForm.ejs', {error:"Passwords and Emails don't match"});
+        res.render('RegistrationForm.ejs', {error:"Passwords don't match"});
     }
     else if(email !== confirmEmail){
         res.render('RegistrationForm.ejs', {error:"Emails don't match"});
     }
     else{
-    
+        
     }
 })
 

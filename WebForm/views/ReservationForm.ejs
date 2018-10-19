@@ -7,18 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Reservation Page</title>
 </head>
-<body>
+<body
     <h1>Reservation Page</h1>
     <form method = 'POST' action = '/reservation/create'>
         <h2>Place new reservation:</h2>
         Reservation Start Date:<br>
-        <script>
-            var curDate = new Date();
-            console.log(curDate);
-        </script>
-        <input name="datefield" type='datetime-local' min = ></input>
+        <input name="datefield" type='datetime-local'></input><br><br>
+
+        Parking Spot Number:<br>
+        <input name=spotID type = 'text' ></input><br>
         <!-- ill finish this later -->
-		<input type = 'submit' value = 'Create Reservation' name = 'makeRes'>
-	</form>
+        <input type = 'submit' value = 'Create Reservation' name = 'makeRes'>
+    </form>
+    
 </body>
 </html>
