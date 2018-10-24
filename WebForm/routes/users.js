@@ -44,9 +44,13 @@ router.get('/login/success', (req,res,next) => {
 router.post('/register', (req,res,next) => {
     var username = req.body.Username;
     var password = req.body.Password;
+    var name = req.body.Name;
     var confirmpass = req.body.conPass;
     var email = req.body.email;
     var confirmEmail = req.body.conEmail;
+    var license = req.body.license;
+
+    var query = "INSERT INTO Users (Username,Password,Name,License) VALUES ('" +username + "','" + password + "','" + name + "','" + license+"')";
 
     if(password !== confirmpass && email !== confirmEmail)
     {
@@ -59,8 +63,11 @@ router.post('/register', (req,res,next) => {
         res.render('RegistrationForm.ejs', {error:"Emails don't match"});
     }
     else{
-        
-    }
+        con.query(query,(err, result, fields) =>{
+            if (err)throw err;
+            });   
+            res.render('AccountMainPage.ejs');
+        }
 })
 
 
