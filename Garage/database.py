@@ -4,7 +4,8 @@ mydb = mysql.connector.connect(
     host = 'se-project.cqeckwiwnfhm.us-east-2.rds.amazonaws.com',
     user = 'root',
     passwd = '12345678',
-    database = 'se'
+    database = 'se',
+    autocommit = "True"
 )
 
 def getCursor():

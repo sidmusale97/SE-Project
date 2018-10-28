@@ -1,5 +1,4 @@
 import sys
-import _thread
 import base64
 import requests
 import json
@@ -9,6 +8,8 @@ import Elevator as elev
 import time
 import datetime
 import database
+
+f = open('log.txt', 'w')
 
 mycursor = database.getCursor()
 
@@ -52,19 +53,23 @@ def scanPlate():
 
 
 def openGate():
+    global gate
     gate = 1
-    print('Gate opening...')
+    f.write('Gate opening...')
 
 def closeGate():
+    global gate
     gate = 0
     carPassed = 0
-    print('Gate closing...')
+    f.write('Gate closing...')
 
 def checkResTime(reservations):
     now = datetime.datetime.now()
     
     for res in reservations:
         
+        if (int(res[3])):
+            continue
         resTime = str(res[2])
         
         [year, month,temp] = resTime.split('-')
@@ -73,7 +78,7 @@ def checkResTime(reservations):
         [hour, mins] = time.split(':')
         
         resTime = datetime.datetime(int(year), int(month), int(day), int(hour), int(mins), 0, 0)
-        lateTime = resTime + datetime.timedelta(30)
+        lateTime = resTime + datetime.timedelta(minutes = 30)
         if (now >= resTime and now <= lateTime):
             return res
         
@@ -103,7 +108,7 @@ def handleExisting(userData):
                     choice = int(input('Error please choose a spot in the list. Please select a parking spot from the list:'))
                 else:
                     break
-            _thread.start_new_thread(elev.main, (choice,1))
+        elev.handlePerson(choice,0)
             
 
     elif(parkingType == '2'):
@@ -115,6 +120,7 @@ def handleExisting(userData):
             return
         else:
             res = checkResTime(res)
+            print(res)
             if (res == None):
                 print("Your reservation is either not for today or has not started yet")
                 return
@@ -127,10 +133,9 @@ def handleExisting(userData):
 
             resID = res[0]
             query = "UPDATE Reservations set CheckIn = '1' where idReservations = %s" % (resID)
-            print(query)
             mycursor.execute(query)
             database.commit()
-            _thread.start_new_thread(elev.handlePerson, (int(res[4]),2))
+            elev.handlePerson(int(res[4]),resID)
             
     elif (parkingType == '3'):
         return
