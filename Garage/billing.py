@@ -1,4 +1,4 @@
-from ExitGate import scanPlate,get_datetime_hours
+
 #import print_options
 #print_options.set_float_precision(2)
 import smtplib
@@ -18,12 +18,8 @@ def email(user_name,user_email,hours):
   server.sendmail("chdeng518@gmail.com", user_email, msg)
   server.quit()
 
-def test(hours):
-  user_name = "chunhua"
-  user_email = "chunhua.deng518@gmail.com"
-  email(user_name, user_email, hours)
 
-if __name__ == "__main__":
-  park_start_time,current_time,hours = get_datetime_hours("W92HSD")
-  test(hours)
+
+
+
 

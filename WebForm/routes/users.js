@@ -24,8 +24,8 @@ router.post('/login', (req,res,next) => {
             {
                 res.render('index.ejs', {error: "Username does not exist or password is invalid"});
             }
-            else
-            {
+        else
+            { 
                 req.session.userID = result[0].idUsers;
                 req.session.name = result[0].Name;
                 res.redirect('/users/login/success');

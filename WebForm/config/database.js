@@ -9,7 +9,7 @@ var con = mysql.createConnection(dbData);
 con.connect((err) => {
     if (err) throw err;
     else{
-            console.log("connected");
+        console.log("connected");
     }
 });
 module.exports = {

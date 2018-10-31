@@ -11,10 +11,18 @@ client = Client(account_sid, auth_token)
 # right now this just sends a randomly generated code to the phone number without saving
 # need to save and store a unique code per user to check against
 def sendAuth(userPhone):
+    
     message = client.messages.create(
-        to=userPhone,          
+        to="+1" +userPhone,          
         from_="+19735471673",       # number given for free trial by twilio - dont change for now
         body='Your unique code is ' + authCode.generateCode()
     )
-    print('twilio message id (debug): ' + message.sid)
     
+
+def sendWrongSpot(userPhone,spot):
+    message = client.messages.create(
+        to="+1" +userPhone,          
+        from_="+19735471673",       # number given for free trial by twilio - dont change for now
+        body='You are in the wrong spot for your reservation. Please proceed to %d' % spot
+    )
+   

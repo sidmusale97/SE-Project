@@ -2,37 +2,35 @@ import time
 import database
 import datetime
 import TrafficManagement as TM
+import Notifications as noti
 mycursor = database.getCursor()
 
 def checkParking(spot,resID,floor,plate):
     badParkNote = False
     unoccupiedInitial = getUnoccupiedList(floor)
+    phone = getPhonefromPlate(plate)
     while True:
-        if (resID):#if reservation
-            query = "SELECT SpotID FROM ParkingSpots where Floor = %d and Reserved = 1 and Occupied = 1" % (floor)
-            mycursor.execute(query)
-            res = mycursor.fetchone()
-            if (int(res[0] != int(spot))):
-                if (not badParkNote):#make sure user parks in the right spot
-                    #send notification that user is in the wrong spot
-                    badParkNote = True
-                    print('Wrong Spot!!!')
-                time.sleep(2)
-                continue #continue waiting
+        unoccupiedNow = getUnoccupiedList(floor)
+        if (len(unoccupiedInitial) != len(unoccupiedNow)): #someone has parked
+            spotParked = findSpotOccupied(unoccupiedInitial,unoccupiedNow)
+            if (resID):#if reservation
+                if (int(spotParked != int(spot))):
+                    if (not badParkNote):#make sure user parks in the right spot
+                        #send notification that user is in the wrong spot
+                        badParkNote = True
+                        noti.sendWrongSpot(phone,spot)
+                    time.sleep(2)
+                    continue #continue waiting
+                else:
+                    break       
             else:
-                break       
-        else:#if adhoc let user park anywhere
-            #send user notification to enter exit building
-            unoccupiedNow = getUnoccupiedList(floor)
-            if (len(unoccupiedInitial) != len(unoccupiedNow)): #someone has parked
-                spotParked = findSpotOccupied(unoccupiedInitial,unoccupiedNow)
                 break
         time.sleep(3)
 
-    query = "UPDATE ParkingSpots Set Reserved = 0 WHERE SpotID = %d" % (spot)
-    mycursor.execute(query)
-    database.commit()
+    unReserve(spot)
     print("Successful parking")  
+    phone = getPhonefromPlate(plate)
+    noti.sendAuth(phone)      # need to move this to spotverify later, just adding here for quick merge
     now = datetime.datetime.now()
     query = "INSERT INTO ParkingHistory (License, StartTime) Values ('%s','%s')" % (plate,now)
     mycursor.execute(query)
@@ -46,7 +44,7 @@ def getUnoccupiedList(floor):
     return Spots
 
 def unReserve(spot):
-    query = "UPDATE ParkingSpots Reserved = 0 WHERE SpotID = %d" % (spot)
+    query = "UPDATE ParkingSpots Set Reserved = 0 WHERE SpotID = %d" % (spot)
     mycursor.execute(query)
     database.commit()
 
@@ -60,3 +58,10 @@ def findSpotOccupied(initial, final):
             spotParked = i[0]
             break
     return spotParked
+
+def getPhonefromPlate(plate):
+    query = "Select Phone From Users Where License = '%s'"  % (plate)
+    mycursor.execute(query)
+    phone = mycursor.fetchone()
+    phone = phone[0]
+    return phone

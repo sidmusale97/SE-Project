@@ -6,6 +6,7 @@ const config = require('../config/database');
 var con = config.database;
 router.get('/form', (req,res,next) => {
     res.render('ReservationForm.ejs');
+    
 });
 
 router.post('/create', (req,res,next) => {
@@ -17,7 +18,6 @@ router.post('/create', (req,res,next) => {
         res.redirect("/reservation/form");
     }
     var query = "INSERT INTO Reservations (userID, DateTime) VALUES ('" +userID + "','" + time + "')";
-    console.log(query);
     con.query(query, (err,result,fields) => {
         if(err)throw err;
         else{

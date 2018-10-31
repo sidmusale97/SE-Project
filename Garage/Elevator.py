@@ -23,7 +23,6 @@ def bringCar(floor,spot,resID,plate):
     time.sleep(1)
     _thread.start_new_thread(verify.checkParking, (spot,resID,floor,plate))
     time.sleep(2)
-    _thread.start_new_thread(noti.sendAuth(tempPhone), ())      # need to move this to spotverify later, just adding here for quick merge
     print('Returning to floor 1')
     time.sleep(1)
     print('At floor 1')
