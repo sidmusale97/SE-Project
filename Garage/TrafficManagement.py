@@ -1,4 +1,4 @@
-floorsReady = [True,True,False,True,True]
+floorsReady = [True,True,True,True,True]
 
 def isFloorReady(floor):
     global floorsReady

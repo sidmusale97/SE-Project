@@ -32,7 +32,9 @@ def main():
         
             if (result):
                 (userId,_,_,name,_) = result
-                handleExisting((name,userId))
+                handleExisting((name,userId,plate))
+            else:
+                handleNew(plate)
             #if (parkingType == 1):
 
         
@@ -80,17 +82,23 @@ def checkResTime(reservations):
         resTime = datetime.datetime(int(year), int(month), int(day), int(hour), int(mins), 0, 0)
         lateTime = resTime + datetime.timedelta(minutes = 30)
         if (now >= resTime and now <= lateTime):
+            query = "Update ParkingSpots set Reserved = 1 where SpotID = %d" % (res[4])
+            mycursor.execute(query)
+            database.commit()
             return res
-        
-
     return None
 
+def handleNew(plate):
+    phone = input('Welcome New User! Please enter your phone number to receive enter/exit code')
+
+    
+
 def handleExisting(userData):
-    (name,userId) = userData
+    (name,userId,plate) = userData
     print("Hello %s!\n" % (name))
     parkingType = input('Choose 1 for adhoc, 2 for reservation, 3 to exit:\n')
     if (parkingType == '1'):
-        query = "SELECT * FROM ParkingSpots WHERE Occupied = '0'"
+        query = "SELECT * FROM ParkingSpots WHERE Occupied = 0 and Reserved = 0"
         mycursor.execute(query)
         result = mycursor.fetchall()
         if (not result):
@@ -108,7 +116,10 @@ def handleExisting(userData):
                     choice = int(input('Error please choose a spot in the list. Please select a parking spot from the list:'))
                 else:
                     break
-        elev.handlePerson(choice,0)
+        query = "Update ParkingSpots set Reserved = 1 where SpotID = %d" % (choice)
+        mycursor.execute(query)
+        database.commit()
+        elev.handlePerson(choice,0,plate)
             
 
     elif(parkingType == '2'):
@@ -124,18 +135,12 @@ def handleExisting(userData):
             if (res == None):
                 print("Your reservation is either not for today or has not started yet")
                 return
-            print('Please proceed ahead\n')
-            openGate()
-            carPassed = sim.moveCar()
-            while (not carPassed):
-                time.sleep(1)
-            closeGate()
-
+            
             resID = res[0]
             query = "UPDATE Reservations set CheckIn = '1' where idReservations = %s" % (resID)
             mycursor.execute(query)
             database.commit()
-            elev.handlePerson(int(res[4]),resID)
+            elev.handlePerson(int(res[4]),resID,plate)
             
     elif (parkingType == '3'):
         return
