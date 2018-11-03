@@ -17,3 +17,8 @@ def occupy(spot):
     query = "update ParkingSpots set Occupied = 1 where SpotID = %d" % (spot)
     mycursor.execute(query)
     database.commit()
+
+def clearHistory():
+    query = "Truncate Table ParkingHistory"
+    mycursor.execute(query)
+    database.commit()

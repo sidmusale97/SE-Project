@@ -5,22 +5,28 @@ import Simlutation as sim
 import _thread
 import Notifications as noti
 
-tempPhone = "+19739347753"      # set this to the number you want to send a text to (need to automate per user later)
 
 def handlePerson(spot,resID,plate):
+    #extract floor from spot number
     floor = int(spot/100)
+
+    #check if floor is ready to parked on
     while(not TM.isFloorReady(floor)):
-        time.sleep(1)
-    TM.unreadyFloor(floor)
-    bringCar(floor,spot,resID,plate)  
+        time.sleep(1) #wait until floor is ready
+    
+    TM.unreadyFloor(floor) #once floor becomes availiable make it unavailiable as the next person has begun parking
+    bringCar(floor,spot,resID,plate) #commence elevator 
     
 
 
 def bringCar(floor,spot,resID,plate):
+     #messages for debugging
     print("going to floor %d" % (floor))
     time.sleep(1)
     print("on floor %d" % (floor))
     time.sleep(1)
+
+    #spawn new thread to verify spot parking
     _thread.start_new_thread(verify.checkParking, (spot,resID,floor,plate))
     time.sleep(2)
     print('Returning to floor 1')

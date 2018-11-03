@@ -23,14 +23,16 @@ def scanPlate():
     return str(plate)
 
 def get_datetime_hours(license_plate):
+    #get tuple from dB that shows ParkingHistory
     query = "select * from ParkingHistory where License='%s'" % license_plate
     mycursor.execute(query)
     res=mycursor.fetchone()
     park_start_time = res[1]
     current_time = datetime.datetime.now()
-    query = "Update ParkingHistory Set EndTime = '%s', Paid = 1 where License = '%s' and EndTime = ''" % (current_time,license_plate)
+    query = "Update ParkingHistory Set EndTime = '%s', Paid = 1 where License = '%s' and EndTime is NULL ''" % (current_time,license_plate)
     mycursor.execute(query)
     database.commit()
+    #calculate elasped time
     elapsed_time = current_time - park_start_time
     hours = round(elapsed_time.total_seconds()/3600.00*100)/100.0
     return hours
@@ -43,7 +45,7 @@ def main():
     while (True):
         ready = input("Please position your car in the correct position and click the button:\n")
         if (ready):
-            plate ='7A23T6' #scanPlate()  <-- uncomment this to test
+            plate =scanPlate()  #<-- uncomment this to test
             plateVerify = input("Our camera scanned %s as your license plate. Enter 1 if this plate is correct or enter correct plate otherwise:\n" % (plate))
             if (plateVerify != '1'):
                 plate = plateVerify.upper()

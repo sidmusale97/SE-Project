@@ -29,6 +29,7 @@ def checkParking(spot,resID,floor,plate):
 
     unReserve(spot)
     print("Successful parking")  
+    TM.readyFloor(floor)
     phone = getPhonefromPlate(plate)
     noti.sendAuth(phone)      # need to move this to spotverify later, just adding here for quick merge
     now = datetime.datetime.now()
@@ -48,13 +49,13 @@ def unReserve(spot):
     mycursor.execute(query)
     database.commit()
 
-def findSpotOccupied(initial, final):
+def findSpotOccupied(initial, final):#finds newly occupied spot based on intial and final state
     finalSpotList = [None]*len(final)
     spotParked = 0
     for f in range(len(final)):
-        finalSpotList[f] = final[f][0]
+        finalSpotList[f] = final[f][0]#insert all occupied spots into spot list
     for i in initial:
-        if(i[0] not in finalSpotList):
+        if(i[0] not in finalSpotList):#if spot is in initial state list and not in final then it is occupied
             spotParked = i[0]
             break
     return spotParked
