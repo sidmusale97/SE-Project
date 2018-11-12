@@ -29,7 +29,7 @@ def get_datetime_hours(license_plate):
     res=mycursor.fetchone()
     park_start_time = res[1]
     current_time = datetime.datetime.now()
-    query = "Update ParkingHistory Set EndTime = '%s', Paid = 1 where License = '%s' and EndTime is NULL ''" % (current_time,license_plate)
+    query = "Update ParkingHistory Set EndTime = '%s', Paid = 1 where License = '%s' and EndTime is NULL" % (current_time,license_plate)
     mycursor.execute(query)
     database.commit()
     #calculate elasped time
