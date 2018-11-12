@@ -145,9 +145,25 @@ def handleNew(plate):#takes in user data and sets up adhoc parking
 def handleExisting(userData):
     (name,userId,plate) = userData
     print("Hello %s!\n" % (name))
+    #reservation handling
+    #query database for all user reservations
+    query = "SELECT * FROM Reservations WHERE userID = %s and CheckIn = 0" % userId
+    mycursor.execute(query)
+    res = mycursor.fetchall()
+    if(res):
+        #extract resID from reservation tuple
+        resID = res[0]
 
+        #update database to show that reservation has been checked into
+        query = "UPDATE Reservations set CheckIn = '1' where idReservations = %s" % (resID)
+
+        mycursor.execute(query)
+        database.commit()
+        elev.handlePerson(int(res[4]),resID,plate)
+        print("Your reservation for %s is checked in" % res[2])
+        return
     #allow registered users to choose parking type
-    parkingType = input('Choose 1 for adhoc, 2 for reservation, 3 to exit:\n')
+    parkingType = input('Choose 1 for adhoc, 3 to exit:\n')
     if (parkingType == '1'):
         query = "SELECT * FROM ParkingSpots WHERE Occupied = 0 and Reserved = 0"
         mycursor.execute(query)
@@ -173,36 +189,7 @@ def handleExisting(userData):
         mycursor.execute(query)
         database.commit()
         elev.handlePerson(choice,0,plate)
-            
-    #reservation handling
-    elif(parkingType == '2'):
-        if (userId == None):
-            print('You are not a registered user. You must register to make reservations.')
-        #query database for all user reservations
-        query = "SELECT * FROM Reservations WHERE userID = %s and CheckIn = 0" % userId
-        mycursor.execute(query)
-        res = mycursor.fetchall()
-
-        if (not res):
-            print('No reservations found')
-            return
-        else:
-            #get reservation that corresponds to current date
-            res = checkResTime(res)
-            if (res == None):
-                print("Your reservation is either not for today or has not started yet")
-                return
-            
-            #extract resID from reservation tuple
-            resID = res[0]
-
-            #update database to show that reservation has been checked into
-            query = "UPDATE Reservations set CheckIn = '1' where idReservations = %s" % (resID)
-
-            mycursor.execute(query)
-            database.commit()
-            elev.handlePerson(int(res[4]),resID,plate)
-            
+                
     elif (parkingType == '3'):
         return
 
