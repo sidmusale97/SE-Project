@@ -22,3 +22,8 @@ def clearHistory():
     query = "Truncate Table ParkingHistory"
     mycursor.execute(query)
     database.commit()
+
+def unoccupyAll():
+    query = "update ParkingSpots set Occupied = 0 where Occupied = 1"
+    mycursor.execute(query)
+    database.commit()
