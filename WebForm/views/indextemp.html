@@ -1,0 +1,78 @@
+<html>
+<head>
+	<style type ="text/css" >
+		.footer{ 
+			position: fixed;     
+			text-align: center;    
+			bottom: 0px; 
+			width: 100%;
+		}  
+		body {
+			background: -webkit-linear-gradient(left,  rgb(233, 247, 248), rgb(119, 224, 238)); 
+			background: -o-linear-gradient(right,  rgb(233, 247, 248), rgb(119, 224, 238)); 
+			background: -moz-linear-gradient(right, rgb(233, 247, 248), rgb(119, 224, 238)); 
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="format.css">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Auto Park</title
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+</head>
+<body>
+	
+	<img src="https://techflourish.com/images/blue-car-clipart-1.png" alt="car" class="center" style="width:20%;height:20%;">
+
+	<table width = '50%'>
+	<tr>
+		<th style="text-align:left">Auto Park Parking Garage Service</th>
+	</tr>
+	</table>
+
+	<table width = '50%'>
+	
+	<tr>
+		<th style="text-align:left">Log In or Register Member</th>
+		<th style = "text-align:left">Temporary Non Member Sign up</th>
+	</tr>
+
+	<tr>
+		<p style = "color:Red"> <%= error %><p>
+	</tr>
+	<tr>
+		<td>
+		<form method = 'POST' action = '/users/login'>
+			Username:<br>
+			<input type = 'text' name = 'Username'><br>
+			Password:<br>
+			<input type = 'password' name = 'Password'><br>
+			<br>
+			<input type = 'submit' value = 'Log In' name = 'Login'> 
+		</form>	
+		<button id="register">Register</button>
+    	<script>document.getElementById("register").onclick = function(){
+			location.href = "/users/registerpage"
+		}</script>
+		</td>
+		<td>
+			<form method = 'POST' action = '/users/login'>
+				Email:<br>
+				<input type = 'text' name = 'tempEmail'><br>
+				Name:<br>
+				<input type = 'password' name = 'tempPassword'><br>
+				<br>
+				<input type = 'submit' value = 'Log In' name = 'Login'> 
+				</form>
+		</td>
+	</tr>
+
+	</table>
+
+    <div style="position: absolute; bottom: 5px;">
+    Auto Park (C) 2018
+    </div>
+</div>
+</body>
+</html>

@@ -9,6 +9,8 @@ import time
 import datetime
 import database
 
+
+
 #f = open('log.txt', 'w')
 
 mycursor = database.getCursor()

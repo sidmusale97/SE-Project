@@ -24,7 +24,7 @@ def scanPlate():
 
 def get_datetime_hours(license_plate):
     #get tuple from dB that shows ParkingHistory
-    query = "select * from ParkingHistory where License='%s'" % license_plate
+    query = "select * from ParkingHistory where License='%s' and EndTime is NULL" % license_plate
     mycursor.execute(query)
     res=mycursor.fetchone()
     park_start_time = res[1]
