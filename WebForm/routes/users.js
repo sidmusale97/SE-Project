@@ -12,6 +12,9 @@ var con = config.database;
 function User(profile){
     this.profile = profile;
 }
+router.get('/loginpage', (req,res,next) => {
+    res.render('loginpage.ejs')
+});
 
 //Login
 router.post('/login', (req,res,next) => {
@@ -22,7 +25,7 @@ router.post('/login', (req,res,next) => {
         if (err)throw err;
         if (result == null)
             {
-                res.render('index.ejs', {error: "Username does not exist or password is invalid"});
+                res.render('loginpage.ejs', {error: "Username does not exist or password is invalid"});
             }
         else
             { 

@@ -18,7 +18,7 @@ app.set('views', path.join(__dirname, '/views'));
 app.engine('html', require('ejs').renderFile);
 
 //Set static folder
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public',express.static(path.join(__dirname, 'public')));
 
 //Body Parser Middle ware
 app.use(bodyparser.json());
