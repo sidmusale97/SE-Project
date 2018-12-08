@@ -17,7 +17,7 @@ router.get('/loginpage', (req,res,next) => {
 });
 
 //Login
-router.post('/login', (req,res,next) => {
+router.post('/profile', (req,res,next) => {
     var username = req.body.Username;
     var password = req.body.Password;
     var query = "SELECT * FROM Users WHERE Username = '" + username + "' and Password = '" + password + "'";
@@ -31,12 +31,24 @@ router.post('/login', (req,res,next) => {
             { 
                 req.session.userID = result[0].idUsers;
                 req.session.name = result[0].Name;
-                res.redirect('/users/login/success');
+                //res.redirect('/login/success');
+
+                var reservations = null;
+                var query = "SELECT * FROM Reservations WHERE userID = "+ req.session.userID;
+                //console.log(query);
+                var months = ["January", "Feburary", ", March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                con.query(query, (err, result, fields) => {
+                    for (var r in result)
+                    {
+                        console.log(r);
+                    }  
+                    res.render('AccountMainPage.ejs', {name:req.session.name, reservations:result});
+                });
             }   
         });
     });
 
-router.get('/login/success', (req,res,next) => {
+/*router.get('/login/success', (req,res,next) => {
     var reservations = null;
     var query = "SELECT * FROM Reservations WHERE userID = "+ req.session.userID;
     console.log(query);
@@ -49,23 +61,30 @@ router.get('/login/success', (req,res,next) => {
         res.render('AccountMainPage.ejs', {name:req.session.name, reservations:result});
     });
    
-});
+});*/
 
 //Register
 router.post('/register', (req,res,next) => {
     const name = req.body.Name;
     const username = req.body.Username;
     const password = req.body.Password;
+    const license = req.body.license;
     const confirmpass = req.body.conPass;
     const email = req.body.Email;
-    //var confirmEmail = req.body.conEmail;
+    const card = req.body.Card;
+    const phone = req.body.Number;
 
-    req.checkBody('Name','Name is required').notEmpty();
+    
+   var query = "INSERT INTO Users (Username,Password,Name,License,Phone,CardNum,Email) VALUES ('" +username + "','" + password + "','" + name + "','" + license+ "','"+card+ "','"+phone+"','"+email+"')";
+   //console.log(query);
+   //var confirmEmail = req.body.conEmail;
+
+   /* req.checkBody('Name','Name is required').notEmpty();
     req.checkBody('Email','Email is required').notEmpty();
     req.checkBody('Email','Email is not valid').isEmail();
     req.checkBody('Username','Username is required').notEmpty();
     req.checkBody('Password','Password is required').notEmpty();
-    req.checkBody('conPass','Passwords do not match').equals(req.body.Password);
+    req.checkBody('conPass','Passwords do not match').equals(req.body.Password);*/
 
     // if(password !== confirmpass && email !== confirmEmail)
     // {
@@ -80,22 +99,25 @@ router.post('/register', (req,res,next) => {
     // else{
         
     // }
-
-    let errors = req.validationErrors();
+    /*let errors = req.validationErrors();
     
     if(errors){
         req.session.errors= errors;
         req.session.success = false;
         res.render('RegistrationForm.ejs');
         console.log(errors);
-    }else{
+    }else{*/
         let newUser = new User({
             name:name,
             email:email,
             username:username,
             password:password
         });
-        console.log(newUser);
+        //console.log(newUser);
+        con.query(query,(err, result, fields) =>{
+            if (err)throw err;
+            });   
+            res.render('RegistrationForm.ejs');
         // bcrypt.getSalt(10,function(err,salt){
         //     bcrypt.hash(newUser.password,salt,function(err,hash){
         //         if(err){
@@ -114,7 +136,7 @@ router.post('/register', (req,res,next) => {
         // });
         res.redirect('/');
      
-    }
+    //}
     router.get('/login',function(req,res){
         res.render('AccountMainPage.ejs');
     });
