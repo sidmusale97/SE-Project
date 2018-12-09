@@ -6,6 +6,7 @@ var session = require('express-session');
 var bcrypt = require('bcryptjs')
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
+const getStatus = require('./parkmap');
 var con = config.database;
 
 //Constructor
@@ -21,6 +22,9 @@ router.get('/home', (req,res,next) => {
 router.get('/about', (req,res,next) => {
     res.render('AboutPage.ejs')
 });
+//router.get('/map', (req,res,next) => {
+//    res.render('ParkingMap.ejs')
+//});
 router.get('/update',( req,res,next)=>{
     res.render('update.js')
 });
@@ -182,6 +186,16 @@ router.post('/register', (req,res,next) => {
 router.get('/registerpage', (req,res,next) =>{
     res.render('RegistrationForm.ejs');
 });
+
+
+//Parking map
+router.get('/map', async(req,res,next) => { 
+    //const data = await getStatus();
+    getStatus(function(data){
+    console.log(data);
+    res.render('ParkingMap.ejs',{data: data,});
+    })
+})
 
 
 module.exports = router;

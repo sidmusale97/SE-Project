@@ -9,7 +9,8 @@ var port = 8000;
 const index = require('./routes/index');
 const users = require('./routes/users');
 const reservation = require('./routes/reservation');
-const entrance = require('./routes/Entrance')
+const entrance = require('./routes/Entrance');
+const parkmap = require('./routes/parkmap');
 
 
 //Setting View engine
@@ -35,7 +36,8 @@ app.use(session({
 app.use('/', index);
 app.use('/users', users);
 app.use('/reservation', reservation);
-app.use('/entrance', entrance)
+app.use('/entrance', entrance);
+app.use('/map', parkmap);
 
 
 app.listen(port, function(){
