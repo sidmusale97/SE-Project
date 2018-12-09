@@ -29,6 +29,10 @@ router.get('/update',( req,res,next)=>{
     res.render('update.js')
 });
 
+router.get('/profile/update',(req,res,next)=>{
+    res.render('UpdateInfo.ejs');
+});
+
 //Login
 router.post('/profile', (req,res,next) => {
     var username = req.body.Username;

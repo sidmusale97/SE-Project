@@ -9,6 +9,10 @@ router.get('/form', (req,res,next) => {
     
 });
 
+router.get('/cancel',(req,res,next)=> {
+    res.render('ReservationCancel.ejs');
+});
+
 router.post('/create', (req,res,next) => {
     var userID = req.session.userID;
     var time = req.body.datefield;
