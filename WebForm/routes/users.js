@@ -15,6 +15,15 @@ function User(profile){
 router.get('/loginpage', (req,res,next) => {
     res.render('loginpage.ejs')
 });
+router.get('/home', (req,res,next) => {
+    res.render('index.ejs')
+});
+router.get('/about', (req,res,next) => {
+    res.render('AboutPage.ejs')
+});
+router.get('/update',( req,res,next)=>{
+    res.render('update.js')
+});
 
 //Login
 router.post('/profile', (req,res,next) => {
@@ -73,29 +82,30 @@ router.post('/register', (req,res,next) => {
     const email = req.body.Email;
     const card = req.body.Card;
     const phone = req.body.Number;
+    var confirmEmail = req.body.conEmail;
 
     
    var query = "INSERT INTO Users (Username,Password,Name,License,Phone,CardNum,Email) VALUES ('" +username + "','" + password + "','" + name + "','" + license+ "','"+card+ "','"+phone+"','"+email+"')";
    //console.log(query);
-   //var confirmEmail = req.body.conEmail;
 
-   /* req.checkBody('Name','Name is required').notEmpty();
+   /*
+    req.checkBody('Name','Name is required').notEmpty();
     req.checkBody('Email','Email is required').notEmpty();
     req.checkBody('Email','Email is not valid').isEmail();
     req.checkBody('Username','Username is required').notEmpty();
     req.checkBody('Password','Password is required').notEmpty();
     req.checkBody('conPass','Passwords do not match').equals(req.body.Password);*/
 
-    // if(password !== confirmpass && email !== confirmEmail)
-    // {
-    //     res.render('RegistrationForm.ejs', {error:"Passwords and Emails don't match"});
-    // }
-    // else if(password !== confirmpass){
-    //     res.render('RegistrationForm.ejs', {error:"Passwords don't match"});
-    // }
-    // else if(email !== confirmEmail){
-    //     res.render('RegistrationForm.ejs', {error:"Emails don't match"});
-    // }
+    if(password !== confirmpass && email !== confirmEmail)
+    {
+        res.render('RegistrationForm.ejs', {error:"Passwords and Emails don't match"});
+    }
+    else if(password !== confirmpass){
+        res.render('RegistrationForm.ejs', {error:"Passwords don't match"});
+    }
+     else if(email !== confirmEmail){
+        // res.render('RegistrationForm.ejs', {error:"Emails don't match"});
+    }
     // else{
         
     // }
@@ -117,7 +127,37 @@ router.post('/register', (req,res,next) => {
         con.query(query,(err, result, fields) =>{
             if (err)throw err;
             });   
-            res.render('RegistrationForm.ejs');
+            //res.render('RegistrationForm.ejs');
+
+        var logUsername = username;
+        var logPass = password;
+        var logQuery = "SELECT * FROM Users WHERE Username = '" + logUsername + "' and Password = '" + logPass + "'";
+        con.query(logQuery,(err, result, fields) =>{
+    
+        if (err)throw err;
+        if (result == null)
+            {
+               // res.render('loginpage.ejs', {error: "Username does not exist or password is invalid"});
+            }
+        else
+            { 
+                req.session.userID = result[0].idUsers;
+                req.session.name = result[0].Name;
+                //res.redirect('/login/success');
+
+                var reservations = null;
+                var resQuery = "SELECT * FROM Reservations WHERE userID = "+ req.session.userID;
+                console.log(resQuery);
+                var months = ["January", "Feburary", ", March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                con.query(resQuery, (err, result, fields) => {
+                    for (var r in result)
+                    {
+                        //console.log(r);
+                    }  
+                    res.render('AccountMainPage.ejs', {name:req.session.name, reservations:result});
+                });
+            }   
+        });
         // bcrypt.getSalt(10,function(err,salt){
         //     bcrypt.hash(newUser.password,salt,function(err,hash){
         //         if(err){
@@ -133,13 +173,8 @@ router.post('/register', (req,res,next) => {
         //             }
         //         })
         //     });
-        // });
-        res.redirect('/');
-     
+        // });     
     //}
-    router.get('/login',function(req,res){
-        res.render('AccountMainPage.ejs');
-    });
     
 });
 

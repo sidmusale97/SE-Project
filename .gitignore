@@ -25,3 +25,4 @@ $RECYCLE.BIN/
 **/node_modules
 **/.vscode
 *.pyc
+WebForm/public/homepage.jpg
