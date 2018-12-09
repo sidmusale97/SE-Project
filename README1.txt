@@ -14,6 +14,8 @@ python has some library dependecies as well. Please install all the following li
 mysql.connector
 requests
 json
+twilio
+matplotlib
 
 
 Running the tests

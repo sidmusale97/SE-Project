@@ -46,7 +46,7 @@ def main():
         
 def scanPlate(): #this function reads license.jpg in the garage folder and recognizes the plate and returns the plate as a string
     #this sends request to openALPR api to recognize the plates
-    crop('license.jpg','cropped.jpg')#zooms into license plate (beta)
+    #crop('license.jpg','cropped.jpg')#zooms into license plate (beta)
 
     pic = open('license.jpg', 'rb')
     
