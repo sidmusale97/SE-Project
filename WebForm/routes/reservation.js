@@ -6,7 +6,9 @@ const config = require('../config/database');
 var con = config.database;
 router.get('/form', (req,res,next) => {
     res.render('ReservationForm.ejs');
-    
+});
+router.get('/cancel', (req,res,next) => {
+    res.render('ReservationCancel.ejs');
 });
 
 router.post('/create', (req,res,next) => {

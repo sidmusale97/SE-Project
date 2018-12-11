@@ -22,12 +22,13 @@ router.get('/home', (req,res,next) => {
 router.get('/about', (req,res,next) => {
     res.render('AboutPage.ejs')
 });
+router.get('/update',( req,res,next)=>{
+    res.render('update.ejs')
+});
 //router.get('/map', (req,res,next) => {
 //    res.render('ParkingMap.ejs')
 //});
-router.get('/update',( req,res,next)=>{
-    res.render('update.js')
-});
+
 
 //Login
 router.post('/profile', (req,res,next) => {
