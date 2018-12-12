@@ -272,7 +272,7 @@ router.post('/register', (req,res,next) => {
 
 //Register page
 router.get('/registerpage', (req,res,next) =>{
-    res.render('RegistrationForm.ejs');
+    res.render('RegistrationForm.ejs', {error:null});
 });
 
 
