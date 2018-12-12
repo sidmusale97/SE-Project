@@ -25,7 +25,7 @@ router.get('/about', (req,res,next) => {
     res.render('AboutPage.ejs')
 });
 router.get('/update',( req,res,next)=>{
-    res.render('update.ejs')
+    res.render('UpdateInfo.ejs')
 });
 //router.get('/map', (req,res,next) => {
 //    res.render('ParkingMap.ejs')
@@ -87,6 +87,66 @@ router.post('/profile', (req,res,next) => {
    
 });*/
 
+
+router.post('/updatesuccess',(req,res,next)=>{
+    const name = req.body.Name;
+    const username = req.body.Username;
+    const password = req.body.Password;
+    const license = req.body.license;
+    const newpass = req.body.newPassword;
+    const confirmpass = req.body.conPass;
+    const email = req.body.Email;
+    const card = req.body.Card;
+    const phone = req.body.Number;
+
+
+
+    if(name!=''){
+        var query = "UPDATE Users SET Name='"+name+"' WHERE Username = '" + username + "' and Password = '" + password + "'";
+        con.query(query,(err, result, fields) =>{
+            if (err)throw err;
+            }); 
+    }
+
+    if(license!=''){
+        var query = "UPDATE Users SET License='"+license+"' WHERE Username = '" + username + "' and Password = '" + password + "'";
+        con.query(query,(err, result, fields) =>{
+            if (err)throw err;
+        }); 
+    }
+
+    if(phone!=''){
+        var query = "UPDATE Users SET Phone='"+phone+"' WHERE Username = '" + username + "' and Password = '" + password + "'";
+        con.query(query,(err, result, fields) =>{
+            if (err)throw err;
+        }); 
+    }
+
+    if(card!=''){
+        var query = "UPDATE Users SET CardNum='"+card+"' WHERE Username = '" + username + "' and Password = '" + password + "'";
+        con.query(query,(err, result, fields) =>{
+            if (err)throw err;
+        }); 
+    }
+    if(email!=''){
+        var query = "UPDATE Users SET Email='"+email+"' WHERE Username = '" + username + "' and Password = '" + password + "'";
+        con.query(query,(err, result, fields) =>{
+            if (err)throw err;
+        }); 
+    }
+
+
+    if(newpass!=''){
+        var query = "UPDATE Users SET Password='"+newpass+"' WHERE Username = '" + username + "' and Password = '" + password + "'";
+        con.query(query,(err, result, fields) =>{
+            if (err)throw err;
+            }); 
+    }
+    
+    res.render('UpdateSuccess.ejs');
+
+    
+});
 //Register
 router.post('/register', (req,res,next) => {
     const name = req.body.Name;
@@ -99,6 +159,23 @@ router.post('/register', (req,res,next) => {
     const phone = req.body.Number;
     var confirmEmail = req.body.conEmail;
 
+        if(password !== confirmpass && email !== confirmEmail)
+    {
+        res.render('RegistrationForm.ejs', {error:"Passwords and Emails don't match"});
+    }
+    else if(password !== confirmpass){
+        res.render('RegistrationForm.ejs', {error:"Passwords don't match"});
+    }
+     else if(email !== confirmEmail){
+        res.render('RegistrationForm.ejs', {error:"Emails don't match"});
+    }
+    
+     con.query('SELECT COUNT(*) FROM Users WHERE Username = ?',[username],(err,result,fields)=> {
+       if(err)throw err;
+       if(result >0){
+           res.render('RegistrationForm.ejs',{errors:"Username already exists"});
+       }
+   });
     
    var query = "INSERT INTO Users (Username,Password,Name,License,Phone,CardNum,Email) VALUES ('" +username + "','" + password + "','" + name + "','" + license+ "','"+card+ "','"+phone+"','"+email+"')";
    //console.log(query);
@@ -119,7 +196,7 @@ router.post('/register', (req,res,next) => {
         res.render('RegistrationForm.ejs', {error:"Passwords don't match"});
     }
      else if(email !== confirmEmail){
-        // res.render('RegistrationForm.ejs', {error:"Emails don't match"});
+        res.render('RegistrationForm.ejs', {error:"Emails don't match"});
     }
     // else{
         
