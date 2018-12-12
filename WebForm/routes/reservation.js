@@ -23,12 +23,13 @@ router.get('/cancelled',(req,res,next)=> {
 router.post('/create', (req,res,next) => {
     var userID = req.session.userID;
     var time = req.body.datefield;
+    var spot = req.body.spotID
 
     if(userID == null || time == null)
     {
         res.redirect("/reservation/form");
     }
-    var query = "INSERT INTO Reservations (userID, DateTime) VALUES (" +userID + ",'" + time + "')";
+    var query = "INSERT INTO Reservations (userID, DateTime, ParkingSpot) VALUES (" +userID + ",'" + time + "'," + spot + ")";
    // console.log(query);
     con.query(query, (err,result,fields) => {
         if(err)throw err;
