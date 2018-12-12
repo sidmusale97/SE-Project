@@ -38,7 +38,6 @@
             <li><a href="/users/loginpage">Login</a></li>
             <li><a href="/users/registerpage">Register</a></li>
             <li><a href="/users/map">Parking Map</a></li>
-            <li><a href="/users/update">Update User</a></li>
             <li><a href="/users/about">About</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -47,25 +46,19 @@
 
     <div class="container">
 
-      <div class="starter-template">
-        <h1>Register Page</h1>
-        <h3>Please fill out all of the fields below to register</h3>
-        <p id = 'error'></p>
-        <form method = 'POST' action = '/users/register'>
-            Please fill out all the fields below<br>
-            <br>
-            Name<input type = 'text' name = 'Name'><br>
-            Username<input type = 'text' name = 'Username'><br>
-            License Plate<input type = 'text' name = 'license'><br>
-            Email<input id = 'Email' type = 'text' name = 'Email'><br>
-            Confirm Email<input id = 'Email' type = 'text' name = 'conEmail'><br>
-            Phone<input type = 'text' name = 'Number'><br>
-            Credit Card<input type = 'text' name = 'Card'><br>
-            Password<input id = 'Password' type = 'password' name = 'Password'><br>
-            Confirm Password<input id = 'conPass'  type = 'password' name = 'conPass'><br>
-            <input type = 'submit' name = 'Submit' id ='Submit'>
-        </form>
-        
+      <div class="starter-template"> 
+          <h1>Update Successful</h1>
+          <td class="align-middle">
+          <table>
+                <tr>
+                    <button id="homepage">Return to homepage</button>
+                    <script>document.getElementById("homepage").onclick = () => {
+                        location.href = "/users/home"
+                    } 
+                    </script>
+            </table>
+        </td>
+
         <!--<form>
             <div class="form-group">
               <label for="exampleInputEmail1">Name</label>

@@ -38,6 +38,7 @@
             <li><a href="/users/loginpage">Login</a></li>
             <li><a href="/users/registerpage">Register</a></li>
             <li><a href="/users/map">Parking Map</a></li>
+            <li><a href="/users/update">Update User</a></li>
             <li><a href="/users/about">About</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -48,21 +49,23 @@
 
       <div class="starter-template">
         <h1>Update Information</h1>
-        <h3>Please fill out the field you want to change</h3>
+        <h3>Enter your login information to ensure your identity:</h3>
         <p id = 'error'></p>
-        <form method = 'POST' action = '/users/register'>
-            Please fill out all the fields below<br>
-            <br>
+        <form method = 'POST' action = '/users/updatesuccess'>
+            Username<input type = 'text' name = 'Username'><br>
+            Current Password<input type = 'Password' type = 'password' name= 'Password'><br><br><br>
+
+            <h3>Please fill the fields you want to update:</h3>
             Name<input type = 'text' name = 'Name'><br>
             License Plate<input type = 'text' name = 'license'><br>
             Email<input id = 'Email' type = 'text' name = 'Email'><br>
             Phone<input type = 'text' name = 'Number'><br>
             Credit Card<input type = 'text' name = 'Card'><br>
-            Password<input id = 'Password' type = 'password' name = 'Password'><br>
-            Confirm Password<input id = 'conPass'  type = 'password' name = 'conPass'><br>
+            New Password<input id = 'Password' type = 'password' name = 'newPassword'><br>
+            Confirm New Password<input id = 'conPass'  type = 'password' name = 'conPass'><br>
            <button id="update">Update</button>
            <script>document.getElementById("update").onclick = () => {
-            location.href = "/reservation/form"
+            location.href = "/users/updatesuccess"
         } 
         </script>
         </form>
