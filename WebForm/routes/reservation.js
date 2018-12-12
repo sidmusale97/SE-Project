@@ -13,6 +13,12 @@ router.get('/form', (req,res,next) => {
 router.get('/cancel',(req,res,next)=> {
     res.render('ReservationCancel.ejs');
 });
+router.get('/success',(req,res,next)=> {
+    res.render('ReservationSuccess.ejs');
+});
+router.get('/cancelled',(req,res,next)=> {
+    res.render('ReservationCancelled.ejs');
+});
 
 router.post('/create', (req,res,next) => {
     var userID = req.session.userID;
@@ -22,17 +28,19 @@ router.post('/create', (req,res,next) => {
     {
         res.redirect("/reservation/form");
     }
-    var query = "INSERT INTO Reservations (userID, DateTime) VALUES ('" +userID + "','" + time + "')";
+    var query = "INSERT INTO Reservations (userID, DateTime) VALUES (" +userID + ",'" + time + "')";
+   // console.log(query);
     con.query(query, (err,result,fields) => {
         if(err)throw err;
-        else{
+        //else{
             console.log('1 doc inserted');
             //res.write('Reservation succuessfully made. Redirecting to main page...');
-             setTimeout(() =>{
-                res.redirect('/users/login/success');
-            }, 2000);
-        }
+            // setTimeout(() =>{
+               // res.redirect('/users/login/success');
+            //}, 2000);
+        //}
     });
+    res.redirect("/reservation/success");
 });
 
 router.post('/cancel', (req,res,next)=> {
@@ -42,17 +50,21 @@ router.post('/cancel', (req,res,next)=> {
     if(userID == null || time == null){
         res.redirect("/reservation/cancel");
     }
+    var query="DELETE FROM Reservations WHERE userID = "+userID+" AND DateTime = '"+time+"'";
+    //console.log(query);
 
-    con.query("DELETE FROM Reservations WHERE userID = ?",[userID], (err,result,fields) => {
+    con.query(query, (err,result,fields) => {
         if(err)throw err;
         else{
             console.log('1 doc deleted');
             //res.write('Reservation succuessfully made. Redirecting to main page...');
              setTimeout(() =>{
-                res.redirect('/users/profile');
+                //res.redirect('/users/home');
             }, 2000);
         }
     });
+    res.redirect('/reservation/cancelled');
+
 });
 
 
