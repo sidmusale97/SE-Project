@@ -153,6 +153,7 @@ def handleExisting(userData):
     mycursor.execute(query)
     res = mycursor.fetchall()
     if(res):
+        res = res[0]
         #extract resID from reservation tuple
         resID = res[0]
 

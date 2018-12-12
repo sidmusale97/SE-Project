@@ -13,6 +13,8 @@ var con = config.database;
 function User(profile){
     this.profile = profile;
 }
+
+
 router.get('/loginpage', (req,res,next) => {
     res.render('loginpage.ejs')
 });
@@ -34,10 +36,17 @@ router.get('/profile/update',(req,res,next)=>{
     res.render('UpdateInfo.ejs');
 });
 
+
 //Login
 router.post('/profile', (req,res,next) => {
     var username = req.body.Username;
     var password = req.body.Password;
+
+    if (username === 'admin' && password === 'admin')
+    {
+        res.redirect('/admin/home')
+    }
+    else{
     var query = "SELECT * FROM Users WHERE Username = '" + username + "' and Password = '" + password + "'";
     con.query(query,(err, result, fields) =>{
         if (err)throw err;
@@ -56,14 +65,11 @@ router.post('/profile', (req,res,next) => {
                 //console.log(query);
                 var months = ["January", "Feburary", ", March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
                 con.query(query, (err, result, fields) => {
-                    for (var r in result)
-                    {
-                        console.log(r);
-                    }  
                     res.render('AccountMainPage.ejs', {name:req.session.name, reservations:result});
                 });
             }   
         });
+    }
     });
 
 /*router.get('/login/success', (req,res,next) => {
@@ -260,7 +266,6 @@ router.get('/map', async(req,res,next) => {
     console.log(data);
     res.render('ParkingMap.ejs',{data: data,});
     })
-})
-
+});
 
 module.exports = router;

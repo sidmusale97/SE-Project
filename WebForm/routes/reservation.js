@@ -1,14 +1,13 @@
 const express = require('express');
 const router = express.Router();
-var mongodb = require('mongodb').MongoClient;
 const config = require('../config/database');
-
+const getStatus = require('./parkmap');
 var con = config.database;
 router.get('/form', (req,res,next) => {
-    res.render('ReservationForm.ejs');
-});
-router.get('/cancel', (req,res,next) => {
-    res.render('ReservationCancel.ejs');
+    getStatus(function(data){
+        console.log(data);
+        res.render('ReservationForm.ejs',{data: data,});
+    })
 });
 
 router.get('/cancel',(req,res,next)=> {

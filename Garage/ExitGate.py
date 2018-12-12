@@ -33,9 +33,7 @@ def get_datetime_hours(license_plate):
     mycursor.execute(query)
     database.commit()
     #calculate elasped time
-    elapsed_time = current_time - park_start_time
-    hours = round(elapsed_time.total_seconds()/3600.00*100)/100.0
-    return hours
+    return (park_start_time, current_time)
     #print(park_start_time)
     #print(current_time)
     #print(hours)
@@ -49,13 +47,13 @@ def main():
             plateVerify = input("Our camera scanned %s as your license plate. Enter 1 if this plate is correct or enter correct plate otherwise:\n" % (plate))
             if (plateVerify != '1'):
                 plate = plateVerify.upper()
-            hours = get_datetime_hours(plate)
+            (start,end) = get_datetime_hours(plate)
             query = "select Name,Email From Users where License = '%s'" % (plate)
             mycursor.execute(query)
             (Name,Email)=mycursor.fetchone()
             if (not Email):
                 Email = input("Hello %s! Please enter your email to receive digital receipt"% (Name)) 
-            bill.email(Name,Email,hours)
+            bill.email(Name,Email,start,end)
             print('Thank you for parking with us. Please check your Email for your receipt')
 
 main()
