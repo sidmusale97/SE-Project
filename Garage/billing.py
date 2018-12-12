@@ -6,10 +6,12 @@ import math
 
 
 #send email to customer for their bill. For now amount owed is based on a flat rate of $5/hr
-def email(user_name,user_email,hours): 
+def email(user_name,user_email,startTime,endTime): 
   server = smtplib.SMTP('smtp.gmail.com', 587)#configure email
   server.starttls()
   server.login("chdeng518@gmail.com", "L123456abc")#login to email
+  h = endTime - startTime
+  hours = round(h.total_seconds()/3600.00*100)/100.0
   charge = hours * 5 #calculate amount owed
   hour = math.floor(hours) #extract amount of hours 
   minite = round((hours-hour)*60) #extract num minutes

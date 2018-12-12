@@ -208,5 +208,4 @@ router.get('/map', async(req,res,next) => {
     })
 });
 
-
 module.exports = router;
