@@ -44,36 +44,47 @@
       </div>
     </nav>
 <body>
-    <table>
-        <tr>
-        <td style : "vertical-align">
-            <h1>Hello <%= name %></h1>
-            <button id="makeRes">Make a Reservation</button>
-            <script>document.getElementById("makeRes").onclick = () => {
-                location.href = "/reservation/form"
-            } 
-            </script>
-            <br><br>
-            <button id="cancelRes">Cancel a Reservation</button>
-            <script>document.getElementById('cancelRes').onclick = () =>{
-                location.href = "/reservation/cancel"
-            }
-            </script>
-            <br><br>
-            <button id="updateInfo">Account Management</button><br><br>
-            <script>document.getElementById('updateInfo').onclick = () =>{
-                location.href = "/users/profile/update"
-            }
-            </script>
-        </td>
-        <td style : "vertical-align">
-            <h1>Your Reservations</h1>
-            <ol>
-                <% for (var res of reservations) { %>
-                    <li><%= res.DateTime %></li>
-                <% } %>
-            </ol>  
-            
+    <div class="container">
+    <h3>Welcome <%= name %></h3>
+    <table class = "table">
+        <thead>
+            <tr>
+                <th scope="col"><h3>Actions </h3></th>
+                <th scope = "col"><h3>Your Reservations</h3></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>
+                    <button id="makeRes">Make a Reservation</button>
+                    <script>document.getElementById("makeRes").onclick = () => {
+                        location.href = "/reservation/form"
+                    }</script>
+
+                    <br><br>
+
+                    <button id="cancelRes">Cancel a Reservation</button>
+                     <script>document.getElementById('cancelRes').onclick = () =>{
+                        location.href = "/reservation/cancel"
+                    }</script>
+                
+                    <br><br>
+                    <button id="updateInfo">Account Management</button><br><br>
+                    <script>document.getElementById('updateInfo').onclick = () =>{
+                        location.href = "/users/profile/update"
+                    }</script>
+                </td>
+                <td>
+                    <ol>
+                        <% for (var res of reservations) { %>
+                            <li><%= res.DateTime %></li>
+                        <% } %>
+                    </ol>
+                </td>  
+            </tr>
+    </tbody>
     </table>
+</div>
 </body>
 </html>

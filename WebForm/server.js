@@ -11,7 +11,7 @@ const users = require('./routes/users');
 const reservation = require('./routes/reservation');
 const entrance = require('./routes/Entrance');
 const parkmap = require('./routes/parkmap');
-
+const admin = require('./routes/admin')
 
 //Setting View engine
 app.set('view engine','ejs');
@@ -38,6 +38,7 @@ app.use('/users', users);
 app.use('/reservation', reservation);
 app.use('/entrance', entrance);
 app.use('/map', parkmap);
+app.use('/admin', admin)
 
 
 app.listen(port, function(){
