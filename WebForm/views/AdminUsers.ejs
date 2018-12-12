@@ -49,18 +49,24 @@
                     <th scope = "col"><h3>UserID</h3></th>
                     <th scope = "col"><h3>Username</h3></th>
                     <th scope = "col"><h3>Password</h3></th>
+                    <th scope = "col"><h3>Name</h3></th>
                     <th scope = "col"><h3>License</h3></th>
+                    <th scope = "col"><h3>Phone</h3></th>
+                    <th scope = "col"><h3>Card Number</h3></th>
                     <th scope = "col"><h3>Email</h3></th>
                 </tr>
             </thead>
             <tbody>
-                <% for (var i = 0; i < spot.length; i++){ %>
+                <% for (var i = 0; i < uID.length; i++){ %>
                      <tr> 
-                        <td><%- resID[i] %></td>
                         <td><%- uID[i] %></td>
-                        <td><%- time[i] %></td>
-                        <td><%- checkIn[i] %></td>
-                        <td><%- spot[i] %></td>
+                        <td><%- username[i] %></td>
+                        <td><%- pass[i] %></td>
+                        <td><%- name[i] %></td>
+                        <td><%- license[i] %></td>
+                        <td><%- phone[i] %></td>
+                        <td><%- card[i] %></td>
+                        <td><%- email[i] %></td>
                      </tr>
                 <% } %>
             </tbody>
@@ -68,28 +74,35 @@
         <form method = "POST"> 
                 <div class="row">
                   <div class="col">
-                    <input name = "resID" type="number" class="form-control" placeholder="ReservationID">
-                  </div>
-                  <div class="col">
                     <input name = "uID" type="number" class="form-control" placeholder="UserID">
                   </div>
                   <div class="col">
-                    <input name = "time" type="datetime-local" class="form-control" placeholder="Datetime">
+                    <input name = "username" type="text" class="form-control" placeholder="Username">
+                  </div>
+                  <div class="col">
+                    <input name = "pass" type="text" class="form-control" placeholder="Password">
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <input name = "checkIn" type="number" class="form-control" placeholder="CheckIn">
+                  <div class="col">
+                    <input name = "name" type="text" class="form-control" placeholder="Name">
                     </div>
-                    <div class="col">
-                        <input name = "spot" type="number" class="form-control" placeholder="Spot">
-                    </div>
-                    <div class = "col">
-                    <button type="submit" class="btn btn-primary" formaction = /admin/reservations/updated>Update</button>
-                    </div>
-                    <div class = "col">
-                        <button type="submit" class="btn btn-primary" formaction = /admin/reservations/deleted>Delete</button>
-                    </div>
+                  <div class="col">
+                  <input name = "license" type="text" class="form-control" placeholder="License">
+                  </div>
+                  <div class="col">
+                  <input name = "phone" type="text" class="form-control" placeholder="Phone">
+                  </div>
+                  <div class="col">
+                  <input name = "card" type="text" class="form-control" placeholder="Card Number">
+                  </div>
+                  <div class="col">
+                  <input name = "email" type="text" class="form-control" placeholder="Email">
+                  </div>
+                  <div class = "col">
+                  <button type="submit" class="btn btn-primary" formaction = /admin/users/updated>Update</button>
+                  </div>
+                  <div class = "col">
+                      <button type="submit" class="btn btn-primary" formaction = /admin/users/deleted>Delete</button>
+                  </div>
                 </div>
         </form>
     </div>

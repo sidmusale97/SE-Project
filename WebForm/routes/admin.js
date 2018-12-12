@@ -107,4 +107,61 @@ router.post('/reservations/deleted', (req,res,next) => {
     })
 })
 
+router.get('/users', (req,res,next) => {
+    var query = "select * from Users";
+    var uID = [];
+    var username = [];
+    var pass = [];
+    var name = [];
+    var license = [];
+    var phone = [];
+    var card = [];
+    var email = [];
+    con.query(query, (err,result,fields) => {
+        if(err)throw err;
+        else{
+            for (i in result)
+            {
+                uID.push(result[i].idUsers);
+                username.push(result[i].Username);
+                pass.push(result[i].Password);
+                name.push(result[i].Name);
+                license.push(result[i].License);
+                phone.push(result[i].Phone);
+                card.push(result[i].CardNum)
+                email.push(result[i].Email);
+            }
+            res.render('AdminUsers.ejs', {uID: uID, username: username, pass:pass, name:name, license:license, phone:phone,card:card,email:email});
+        }
+    })
+});
+
+router.post('/users/updated', (req,res,next) => {
+    var query = "Update Users set Username = '" + req.body.username + "', Password = '" + req.body.pass + "' ,Name = '" + req.body.name + "' ,License = '" + req.body.license +"', Phone = '" + req.body.phone + "', CardNum = '" + req.body.card + "', Email = '" + req.body.email + "'where idUsers = " + req.body.uID;
+    console.log(query);
+    con.query(query, (err,result,fields) => {
+        if(err)
+        {
+            throw err;
+        }
+        else{
+            console.log('1 doc updated')
+        }
+        res.redirect('/admin/users')
+    })
+});
+router.post('/users/deleted', (req,res,next) => {
+    var query = "delete from Reservations where idUsers = " + req.body.uID;
+    con.query(query, (err,result,fields) => {
+        if(err)
+        {
+            throw err;
+        }
+        else{
+            console.log('1 doc deleted')
+        }
+        res.redirect('/admin/users')
+    })
+})
+
 module.exports = router;
