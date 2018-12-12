@@ -159,6 +159,23 @@ router.post('/register', (req,res,next) => {
     const phone = req.body.Number;
     var confirmEmail = req.body.conEmail;
 
+        if(password !== confirmpass && email !== confirmEmail)
+    {
+        res.render('RegistrationForm.ejs', {error:"Passwords and Emails don't match"});
+    }
+    else if(password !== confirmpass){
+        res.render('RegistrationForm.ejs', {error:"Passwords don't match"});
+    }
+     else if(email !== confirmEmail){
+        res.render('RegistrationForm.ejs', {error:"Emails don't match"});
+    }
+    
+     con.query('SELECT COUNT(*) FROM Users WHERE Username = ?',[username],(err,result,fields)=> {
+       if(err)throw err;
+       if(result >0){
+           res.render('RegistrationForm.ejs',{errors:"Username already exists"});
+       }
+   });
     
    var query = "INSERT INTO Users (Username,Password,Name,License,Phone,CardNum,Email) VALUES ('" +username + "','" + password + "','" + name + "','" + license+ "','"+card+ "','"+phone+"','"+email+"')";
    //console.log(query);
@@ -179,7 +196,7 @@ router.post('/register', (req,res,next) => {
         res.render('RegistrationForm.ejs', {error:"Passwords don't match"});
     }
      else if(email !== confirmEmail){
-        // res.render('RegistrationForm.ejs', {error:"Emails don't match"});
+        res.render('RegistrationForm.ejs', {error:"Emails don't match"});
     }
     // else{
         
