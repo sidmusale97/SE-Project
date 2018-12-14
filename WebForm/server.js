@@ -12,6 +12,7 @@ const reservation = require('./routes/reservation');
 const entrance = require('./routes/Entrance');
 const parkmap = require('./routes/parkmap');
 const admin = require('./routes/admin')
+const dynamicprice = require('./routes/dynamicprice');
 
 //Setting View engine
 app.set('view engine','ejs');
@@ -38,6 +39,7 @@ app.use('/users', users);
 app.use('/reservation', reservation);
 app.use('/entrance', entrance);
 app.use('/map', parkmap);
+app.use('/dynamicprice', dynamicprice);
 app.use('/admin', admin)
 
 

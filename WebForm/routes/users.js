@@ -285,4 +285,8 @@ router.get('/map', async(req,res,next) => {
     })
 });
 
+router.get('/dynamicprice', async(req,res,next) => { 
+    res.render('dynamicprice.ejs');
+});
+
 module.exports = router;
