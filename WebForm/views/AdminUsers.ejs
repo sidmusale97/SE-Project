@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>AutoPark</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../public/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../public/css/starter-template.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/admin/home">Home</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/admin/spots">Parking Spots</a></li>
+            <li><a href="/admin/users">Users</a></li>
+            <li><a href="/admin/reservations">Reservations</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+<body>
+    <div class="container container-small">
+        <table class = "table table-sm">
+            <thead>
+                <tr>
+                    <th scope = "col"><h3>UserID</h3></th>
+                    <th scope = "col"><h3>Username</h3></th>
+                    <th scope = "col"><h3>Password</h3></th>
+                    <th scope = "col"><h3>Name</h3></th>
+                    <th scope = "col"><h3>License</h3></th>
+                    <th scope = "col"><h3>Phone</h3></th>
+                    <th scope = "col"><h3>Card Number</h3></th>
+                    <th scope = "col"><h3>Email</h3></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (var i = 0; i < uID.length; i++){ %>
+                     <tr> 
+                        <td><%- uID[i] %></td>
+                        <td><%- username[i] %></td>
+                        <td><%- pass[i] %></td>
+                        <td><%- name[i] %></td>
+                        <td><%- license[i] %></td>
+                        <td><%- phone[i] %></td>
+                        <td><%- card[i] %></td>
+                        <td><%- email[i] %></td>
+                     </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <form method = "POST"> 
+                <div class="row">
+                  <div class="col">
+                    <input name = "uID" type="number" class="form-control" placeholder="UserID">
+                  </div>
+                  <div class="col">
+                    <input name = "username" type="text" class="form-control" placeholder="Username">
+                  </div>
+                  <div class="col">
+                    <input name = "pass" type="text" class="form-control" placeholder="Password">
+                    </div>
+                  <div class="col">
+                    <input name = "name" type="text" class="form-control" placeholder="Name">
+                    </div>
+                  <div class="col">
+                  <input name = "license" type="text" class="form-control" placeholder="License">
+                  </div>
+                  <div class="col">
+                  <input name = "phone" type="text" class="form-control" placeholder="Phone">
+                  </div>
+                  <div class="col">
+                  <input name = "card" type="text" class="form-control" placeholder="Card Number">
+                  </div>
+                  <div class="col">
+                  <input name = "email" type="text" class="form-control" placeholder="Email">
+                  </div>
+                  <div class = "col">
+                  <button type="submit" class="btn btn-primary" formaction = /admin/users/updated>Update</button>
+                  </div>
+                  <div class = "col">
+                      <button type="submit" class="btn btn-primary" formaction = /admin/users/deleted>Delete</button>
+                  </div>
+                </div>
+        </form>
+    </div>
+</body>
+</html>

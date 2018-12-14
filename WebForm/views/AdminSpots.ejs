@@ -42,47 +42,39 @@
       </div>
     </nav>
 <body>
-    <h2>Start Time</h2>
-    <input name="start" type='datetime-local'></input>
-
-    <h2>End Time</h2>
-    <input name="datefield" type='datetime-local'></input>
-
-
     <div class="container container-small">
         <table class = "table table-sm">
             <thead>
                 <tr>
-                    <th scope = "col"><h3>Hour</h3></th>
-                    <th scope = "col"><h3>Quantity Parked </h3></th>
+                    <th scope = "col"><h3>Spot</h3></th>
+                    <th scope = "col"><h3>Occupied</h3></th>
+                    <th scope = "col"><h3>Reserved</h3></th>
                 </tr>
             </thead>
             <tbody>
-                <% for (var i = 0; i < hours.length; i++){ %>
+                <% for (var i = 0; i < spot.length; i++){ %>
                      <tr> 
-                        <td><%- hours[i] %></td>
-                        <td><%- quants[i] %></td>
+                        <td><%- spot[i] %></td>
+                        <td><%- occ[i] %></td>
+                        <td><%- reserved[i] %></td>
                      </tr>
                 <% } %>
             </tbody>
         </table>
-
-        <table class = "table table-sm">
-                <thead>
-                    <tr>
-                        <th scope = "col"><h3>Hour</h3></th>
-                        <th scope = "col"><h3>Quantity Parked </h3></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% for (var i = 0; i < hours.length; i++){ %>
-                         <tr> 
-                            <td><%- hours[i] %></td>
-                            <td><%- quants[i] %></td>
-                         </tr>
-                    <% } %>
-                </tbody>
-            </table>
+        <form action = /admin/spots/updated method = "POST"> 
+                <div class="row">
+                  <div class="col">
+                    <input name = "spot" type="number" class="form-control" placeholder="Spot">
+                  </div>
+                  <div class="col">
+                    <input name = "occ" type="number" class="form-control" placeholder="Occupied">
+                  </div>
+                  <div class="col">
+                    <input name = "reserve" type="number" class="form-control" placeholder="Reserved">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+        </form>
     </div>
 </body>
 </html>
