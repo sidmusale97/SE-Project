@@ -1,3 +1,9 @@
+"""
+We try to reproduce results based on our understanding in the paper:
+
+Tian, Qiong, et al. "Dynamic pricing for reservation-based parking system: A revenue management method." Transport Policy 71 (2018): 36-44.
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 
