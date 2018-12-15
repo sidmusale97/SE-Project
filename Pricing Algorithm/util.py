@@ -1,3 +1,7 @@
+"""
+Copyright 2018, Chunhua Deng, Siyu Liao, Xianglong Feng
+"""
+
 from pyspark import SparkContext, SparkConf
 from pyspark.sql import SQLContext, Row
 from pyspark.sql.types import *
