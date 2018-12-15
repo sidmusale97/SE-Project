@@ -49,7 +49,7 @@ To run website navigate to webform and run server.js file
 
 ## Pricing Algorithm
 
-This project incorporates the dynamic pricing feature. All algorithm/analysis related codes are under `Pricing Algorithm` directory. We also add our price page on to the website (under `WebForm` directory) and present into the garage system (under `directory`). 
+This project incorporates the dynamic pricing feature. All algorithm/analysis related codes are under `Pricing Algorithm` directory. We also add our price page on to the website (under `WebForm` directory) and present into the garage system (under `Garage` directory). 
 
 ### pre-reqs
 
