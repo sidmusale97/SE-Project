@@ -1,3 +1,8 @@
+'''
+written by: Siddharth Musale
+tested by: Siddharth Musale
+debugged by: Siddharth Musale
+'''
 floorsReady = [True,True,True,True,True]
 
 def isFloorReady(floor):

@@ -1,3 +1,8 @@
+'''
+written by: Siddharth Musale
+tested by: Siddharth Musale
+debugged by: Siddharth Musale
+'''
 import time
 import TrafficManagement as TM
 import SpotVerify as verify
