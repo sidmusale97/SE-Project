@@ -1,3 +1,7 @@
+// written by: Siddharth Musale and Corey Chen
+// tested by: Siddharth Musale and Corey Chen
+// debugged by: Corey Chen
+
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');

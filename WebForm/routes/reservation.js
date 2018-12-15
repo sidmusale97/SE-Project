@@ -1,3 +1,7 @@
+// written by: Siddharth Musale and Corey Chen
+// tested by: Corey Chen
+// debugged by: Corey Chen
+
 const express = require('express');
 const router = express.Router();
 const config = require('../config/database');
