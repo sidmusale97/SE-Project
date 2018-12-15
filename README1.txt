@@ -1,6 +1,32 @@
 Auto Park
 -------------------------------------------------
 
+Description of Files
+-------------------------------------------------
+Garage:
+authCode.py: generates and sends security authentication code to customer
+billing.py: creates a bill and communicates the final price to the customer
+database.py: queries the database to check for billing and authentication code verification
+Elevator.py: script that acts as the elevator (traveling to floor for parking)
+EntranceGate.py: entrance gate simulation script (sign in)
+ExitGate.py: exit gate simulation script (exit and pricing)
+Notifications.py: sends codes to customer email or text (interacts with authCode.py)
+SpotVerify.py: verifies customer parked in the correct parking spot 
+SpotView.py: allows customer to view current state of garage (generates GUI)
+test.py: testing script (not used)
+TrafficManagement.py: interacts with elevator module to make sure one driver is driving on each floor 
+
+Routes:
+admin.js: routing for the admin pages and login
+Entrance.js: displays the entrance gate page
+index.js: homepage and routing to other pages
+parkmap.js: displays our real-time GUI of the parking garage status
+reservation.js: routing for pages concerning reservations
+users.js: routing for pages concerning customer profiles and logins
+
+
+
+
 Pre reqs
 -------------------------------------------------
 install node.js from any popular distributions 
