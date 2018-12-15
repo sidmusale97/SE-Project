@@ -89,5 +89,5 @@ pyspark --driver-memory 20g --executor-memory 60g
 
 As a result, here is an example of hourly parking demand we generated. 
 
-![Hourly Parking Demand](/hourly.png)
+![Hourly Parking Demand](/hourly.PNG)
 
