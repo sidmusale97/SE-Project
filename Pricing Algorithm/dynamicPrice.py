@@ -1,3 +1,5 @@
+# designed by Xianglong Feng & Chunhua Deng & Siyu Liao
+
 import csv
 import numpy as np
 from scipy.optimize import leastsq
